@@ -34,8 +34,10 @@ func Dial(addr string) (*Client, error) {
 // DialTLS creates a TLS-secured connection to the POP3 server at the given
 // address and returns the corresponding Client.
 func DialTLS(addr string) (*Client, error) {
-	conn, err := tls.Dial("tcp", addr, nil)
-	conn.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+	conf := &tls.Config{
+        	InsecureSkipVerify: true,
+    	}
+	conn, err := tls.Dial("tcp", addr, conf)
 	if err != nil {
 		return nil, err
 	}
