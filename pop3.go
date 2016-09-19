@@ -35,6 +35,7 @@ func Dial(addr string) (*Client, error) {
 // address and returns the corresponding Client.
 func DialTLS(addr string) (*Client, error) {
 	conn, err := tls.Dial("tcp", addr, nil)
+	conn.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 	if err != nil {
 		return nil, err
 	}
